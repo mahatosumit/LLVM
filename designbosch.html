@@ -1,0 +1,3242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bosch Infocomm | Intelligent Spare Parts Finder</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* Bosch Brand Colors - Enhanced */
+            --bosch-blue: #0055A4;
+            --bosch-blue-dark: #003d7a;
+            --bosch-blue-light: #e6f0f9;
+            --bosch-blue-hover: #004a8f;
+            
+            /* Premium Accent Colors */
+            --accent-teal: #00A9B5;
+            --accent-orange: #FF6B35;
+            --accent-orange-light: #fff0eb;
+            --accent-green: #00C853;
+            --accent-red: #FF1744;
+            --accent-red-light: #ffebf0;
+            
+            /* Neutral Scale - 8px Grid Based */
+            --white: #ffffff;
+            --gray-50: #fafbfc;
+            --gray-100: #f5f7fa;
+            --gray-200: #e8ecf1;
+            --gray-300: #d1d9e2;
+            --gray-400: #9aa5b1;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            
+            /* Shadows - Layered Depth */
+            --shadow-xs: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+            --shadow-glow: 0 0 0 3px rgba(0,85,164,0.15);
+            
+            /* Spacing - 8px Grid */
+            --space-1: 8px;
+            --space-2: 16px;
+            --space-3: 24px;
+            --space-4: 32px;
+            --space-5: 40px;
+            --space-6: 48px;
+            --space-8: 64px;
+            --space-10: 80px;
+            
+            /* Border Radius */
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+            --radius-xl: 20px;
+            --radius-2xl: 28px;
+            --radius-full: 9999px;
+            
+            /* Transitions */
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-bounce: 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-800);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+
+        /* ===== NAVIGATION - Premium Glass Effect ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 72px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--gray-200);
+            z-index: 1000;
+            transition: var(--transition-base);
+        }
+
+        .navbar.scrolled {
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            height: 100%;
+            padding: 0 var(--space-4);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            text-decoration: none;
+            transition: var(--transition-fast);
+        }
+
+        .brand:hover {
+            transform: scale(1.02);
+        }
+
+        .brand-logo {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--bosch-blue), var(--bosch-blue-dark));
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 22px;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brand-logo::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: rotate(45deg);
+            transition: var(--transition-slow);
+        }
+
+        .brand:hover .brand-logo::before {
+            transform: rotate(45deg) translate(50%, 50%);
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-name {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--gray-900);
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+
+        .brand-tagline {
+            font-size: 11px;
+            color: var(--bosch-blue);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: var(--space-1);
+            background: var(--gray-100);
+            padding: 6px;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--gray-200);
+        }
+
+        .nav-tab {
+            padding: 10px 20px;
+            border: none;
+            background: transparent;
+            color: var(--gray-600);
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: var(--radius-full);
+            transition: var(--transition-fast);
+            position: relative;
+        }
+
+        .nav-tab:hover {
+            color: var(--bosch-blue);
+        }
+
+        .nav-tab.active {
+            background: white;
+            color: var(--bosch-blue);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .nav-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--gray-200);
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--gray-600);
+            font-size: 18px;
+            transition: var(--transition-fast);
+            position: relative;
+        }
+
+        .nav-btn:hover {
+            border-color: var(--bosch-blue);
+            color: var(--bosch-blue);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-btn.has-badge::after {
+            content: '';
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 8px;
+            height: 8px;
+            background: var(--accent-red);
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+
+        .nav-btn.active {
+            border-color: var(--bosch-blue);
+            color: var(--bosch-blue);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .nav-btn-primary {
+            background: var(--bosch-blue);
+            color: white;
+            border-color: var(--bosch-blue);
+            padding: 0 var(--space-3);
+            width: auto;
+            gap: var(--space-1);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .nav-btn-primary:hover {
+            background: var(--bosch-blue-hover);
+            border-color: var(--bosch-blue-hover);
+            color: white;
+        }
+
+        .mobile-hamburg-btn {
+            display: none;
+        }
+
+        /* ===== MAIN LAYOUT ===== */
+        .main-wrapper {
+            margin-top: 72px;
+            min-height: calc(100vh - 72px);
+        }
+
+        /* ===== HERO SECTION - Command Center ===== */
+        .hero-section {
+            background: linear-gradient(180deg, white 0%, var(--gray-50) 100%);
+            padding: var(--space-10) var(--space-4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -10%;
+            width: 120%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, var(--bosch-blue-light) 0%, transparent 70%);
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .hero-container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-1);
+            padding: 8px 16px;
+            background: var(--bosch-blue-light);
+            color: var(--bosch-blue);
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: var(--radius-full);
+            margin-bottom: var(--space-3);
+            border: 1px solid rgba(0,85,164,0.1);
+        }
+
+        .hero-title {
+            font-size: 52px;
+            font-weight: 800;
+            color: var(--gray-900);
+            text-align: center;
+            line-height: 1.1;
+            margin-bottom: var(--space-3);
+            letter-spacing: -1.5px;
+        }
+
+        .hero-title span {
+            background: linear-gradient(135deg, var(--bosch-blue), var(--accent-teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            color: var(--gray-500);
+            text-align: center;
+            margin-bottom: var(--space-6);
+            font-weight: 400;
+        }
+
+        /* ===== UNIVERSAL SEARCH - Floating Command Bar ===== */
+        .search-command {
+            background: white;
+            border-radius: var(--radius-2xl);
+            box-shadow: var(--shadow-xl), 0 0 0 1px var(--gray-200);
+            padding: var(--space-2);
+            margin-bottom: var(--space-6);
+            transition: var(--transition-base);
+        }
+
+        .search-command:focus-within {
+            box-shadow: var(--shadow-xl), var(--shadow-glow);
+            transform: translateY(-2px);
+        }
+
+        .search-tabs {
+            display: flex;
+            gap: var(--space-1);
+            padding: 0 var(--space-1) var(--space-2);
+            border-bottom: 1px solid var(--gray-100);
+            margin-bottom: var(--space-2);
+        }
+
+        .search-tab {
+            padding: 10px 18px;
+            border: none;
+            background: transparent;
+            color: var(--gray-500);
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            border-radius: var(--radius-md);
+            transition: var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .search-tab:hover {
+            background: var(--gray-100);
+            color: var(--gray-700);
+        }
+
+        .search-tab.active {
+            background: var(--bosch-blue);
+            color: white;
+        }
+
+        .search-input-wrapper {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-2);
+        }
+
+        .search-icon-wrap {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-400);
+            font-size: 20px;
+        }
+
+        .search-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 18px;
+            font-family: inherit;
+            color: var(--gray-800);
+            background: transparent;
+            font-weight: 500;
+        }
+
+        .search-input::placeholder {
+            color: var(--gray-400);
+            font-weight: 400;
+        }
+
+        .search-actions {
+            display: flex;
+            gap: var(--space-1);
+        }
+
+        .btn-scan {
+            padding: 14px 22px;
+            border: 1.5px dashed var(--gray-300);
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--gray-600);
+            transition: var(--transition-fast);
+        }
+
+        .btn-scan:hover {
+            border-color: var(--bosch-blue);
+            color: var(--bosch-blue);
+            background: var(--bosch-blue-light);
+        }
+
+        .btn-scan i {
+            font-size: 18px;
+        }
+
+        .btn-search {
+            padding: 14px 32px;
+            background: var(--bosch-blue);
+            color: white;
+            border: none;
+            border-radius: var(--radius-lg);
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition-fast);
+            box-shadow: 0 4px 14px rgba(0,85,164,0.3);
+        }
+
+        .btn-search:hover {
+            background: var(--bosch-blue-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(0,85,164,0.4);
+        }
+
+        .btn-search:active {
+            transform: translateY(0);
+        }
+
+        /* ===== VIN LOOKUP BAR ===== */
+        .vin-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-3);
+            padding: var(--space-3) var(--space-4);
+            background: white;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--gray-200);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .vin-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            color: var(--gray-700);
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        .vin-label i {
+            color: var(--bosch-blue);
+            font-size: 18px;
+        }
+
+        .vin-input {
+            flex: 1;
+            padding: 12px 18px;
+            border: 1.5px solid var(--gray-200);
+            border-radius: var(--radius-md);
+            font-family: 'SF Mono', monospace;
+            font-size: 16px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gray-800);
+            background: var(--gray-50);
+            transition: var(--transition-fast);
+            max-width: 280px;
+        }
+
+        .vin-input:focus {
+            outline: none;
+            border-color: var(--bosch-blue);
+            background: white;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .btn-vin {
+            padding: 12px 24px;
+            background: var(--gray-800);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-vin:hover {
+            background: var(--gray-900);
+            transform: translateY(-1px);
+        }
+
+        /* ===== CATEGORY GRID - 3D Cards ===== */
+        .categories-section {
+            padding: var(--space-8) var(--space-4);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--space-6);
+        }
+
+        .section-label {
+            display: inline-block;
+            padding: 6px 14px;
+            background: var(--bosch-blue-light);
+            color: var(--bosch-blue);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            border-radius: var(--radius-full);
+            margin-bottom: var(--space-2);
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--gray-900);
+            margin-bottom: var(--space-2);
+        }
+
+        .section-subtitle {
+            font-size: 16px;
+            color: var(--gray-500);
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: var(--space-3);
+        }
+
+        .category-card {
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-xl);
+            padding: var(--space-4) var(--space-3);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition-base);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--bosch-blue), var(--accent-teal));
+            transform: scaleX(0);
+            transition: var(--transition-slow);
+        }
+
+        .category-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--bosch-blue);
+        }
+
+        .category-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .category-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--gray-100);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-2);
+            font-size: 28px;
+            color: var(--bosch-blue);
+            transition: var(--transition-base);
+        }
+
+        .category-card:hover .category-icon {
+            transform: scale(1.1) rotate(-5deg);
+            background: var(--bosch-blue-light);
+        }
+
+        .category-name {
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--gray-800);
+            margin-bottom: 4px;
+        }
+
+        .category-count {
+            font-size: 13px;
+            color: var(--gray-400);
+            font-weight: 500;
+        }
+
+        /* ===== UTILITY STRIP ===== */
+        .utility-strip {
+            background: white;
+            border-top: 1px solid var(--gray-200);
+            border-bottom: 1px solid var(--gray-200);
+            padding: var(--space-3) 0;
+        }
+
+        .utility-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 var(--space-4);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--space-4);
+            flex-wrap: wrap;
+        }
+
+        .recent-searches {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            flex-wrap: wrap;
+        }
+
+        .recent-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--gray-500);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .recent-chip {
+            padding: 8px 16px;
+            background: var(--gray-100);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-full);
+            font-size: 13px;
+            color: var(--gray-600);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            font-weight: 500;
+        }
+
+        .recent-chip:hover {
+            background: var(--bosch-blue-light);
+            border-color: var(--bosch-blue);
+            color: var(--bosch-blue);
+            transform: translateY(-1px);
+        }
+
+        .utility-links {
+            display: flex;
+            gap: var(--space-3);
+        }
+
+        .utility-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            background: transparent;
+            border: 1.5px solid var(--gray-200);
+            border-radius: var(--radius-md);
+            color: var(--gray-600);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            text-decoration: none;
+        }
+
+        .utility-link:hover {
+            border-color: var(--bosch-blue);
+            color: var(--bosch-blue);
+            background: var(--bosch-blue-light);
+        }
+
+        .utility-link i {
+            font-size: 16px;
+        }
+
+        /* ===== RESULTS LAYOUT - Three Column ===== */
+        .results-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr 380px;
+            gap: var(--space-4);
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: var(--space-4);
+        }
+
+        /* ===== FILTER PANEL - Sticky Sidebar ===== */
+        .filter-panel {
+            position: sticky;
+            top: 88px;
+            height: fit-content;
+            max-height: calc(100vh - 104px);
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--gray-300) transparent;
+        }
+
+        .filter-panel::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .filter-panel::-webkit-scrollbar-thumb {
+            background: var(--gray-300);
+            border-radius: var(--radius-full);
+        }
+
+        .filter-card {
+            background: white;
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--gray-200);
+            overflow: hidden;
+            margin-bottom: var(--space-3);
+        }
+
+        .filter-header {
+            padding: var(--space-3);
+            border-bottom: 1px solid var(--gray-100);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .filter-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--gray-800);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filter-title i {
+            color: var(--bosch-blue);
+        }
+
+        .btn-text {
+            font-size: 13px;
+            color: var(--bosch-blue);
+            font-weight: 600;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: var(--radius-sm);
+            transition: var(--transition-fast);
+        }
+
+        .btn-text:hover {
+            background: var(--bosch-blue-light);
+        }
+
+        .filter-body {
+            padding: var(--space-3);
+        }
+
+        .filter-group {
+            margin-bottom: var(--space-4);
+        }
+
+        .filter-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .filter-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--gray-700);
+            margin-bottom: var(--space-2);
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .filter-select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1.5px solid var(--gray-200);
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            background: white;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 40px;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--bosch-blue);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .checkbox-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: var(--radius-md);
+            transition: var(--transition-fast);
+        }
+
+        .checkbox-item:hover {
+            background: var(--gray-50);
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--bosch-blue);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .checkbox-label {
+            flex: 1;
+            font-size: 14px;
+            color: var(--gray-700);
+            font-weight: 500;
+        }
+
+        .checkbox-count {
+            font-size: 12px;
+            color: var(--gray-400);
+            font-weight: 600;
+            background: var(--gray-100);
+            padding: 2px 8px;
+            border-radius: var(--radius-full);
+        }
+
+        /* ===== RESULTS CENTER ===== */
+        .results-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-4);
+        }
+
+        .results-info {
+            font-size: 14px;
+            color: var(--gray-500);
+        }
+
+        .results-info strong {
+            color: var(--gray-800);
+            font-weight: 700;
+        }
+
+        .results-toolbar {
+            display: flex;
+            gap: var(--space-2);
+        }
+
+        .toolbar-btn {
+            padding: 10px 16px;
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gray-600);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition-fast);
+        }
+
+        .toolbar-btn:hover {
+            border-color: var(--bosch-blue);
+            color: var(--bosch-blue);
+        }
+
+        .toolbar-btn.active {
+            background: var(--bosch-blue);
+            color: white;
+            border-color: var(--bosch-blue);
+        }
+
+        /* ===== PART CARDS - Premium Listings ===== */
+        .results-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+        }
+
+        .part-card {
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-xl);
+            padding: var(--space-3);
+            display: flex;
+            gap: var(--space-3);
+            cursor: pointer;
+            transition: var(--transition-base);
+            position: relative;
+        }
+
+        .part-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--bosch-blue);
+            border-radius: var(--radius-xl) 0 0 var(--radius-xl);
+            opacity: 0;
+            transition: var(--transition-fast);
+        }
+
+        .part-card:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: var(--bosch-blue);
+            transform: translateX(4px);
+        }
+
+        .part-card:hover::before {
+            opacity: 1;
+        }
+
+        .part-card.active {
+            border-color: var(--bosch-blue);
+            background: var(--bosch-blue-light);
+            box-shadow: var(--shadow-md);
+        }
+
+        .part-card.active::before {
+            opacity: 1;
+        }
+
+        .part-image {
+            width: 140px;
+            height: 140px;
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+            border: 1px solid var(--gray-100);
+        }
+
+        .part-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-slow);
+        }
+
+        .part-card:hover .part-image img {
+            transform: scale(1.05);
+        }
+
+        .part-content {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .part-badges {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .badge {
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-bosch {
+            background: var(--bosch-blue);
+            color: white;
+        }
+
+        .badge-stock {
+            background: var(--accent-green);
+            color: white;
+        }
+
+        .badge-low {
+            background: var(--accent-orange);
+            color: white;
+        }
+
+        .part-number {
+            font-family: 'SF Mono', monospace;
+            font-size: 13px;
+            color: var(--bosch-blue);
+            font-weight: 700;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .part-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--gray-800);
+            margin-bottom: 8px;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .part-description {
+            font-size: 14px;
+            color: var(--gray-500);
+            margin-bottom: 12px;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .part-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: auto;
+        }
+
+        .meta-tag {
+            padding: 6px 12px;
+            background: var(--gray-100);
+            border-radius: var(--radius-full);
+            font-size: 12px;
+            color: var(--gray-600);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .meta-tag i {
+            color: var(--bosch-blue);
+            font-size: 11px;
+        }
+
+        .part-actions {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-2);
+            justify-content: center;
+            min-width: 140px;
+        }
+
+        .part-price {
+            text-align: right;
+            margin-bottom: var(--space-1);
+        }
+
+        .price-current {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--gray-900);
+        }
+
+        .price-original {
+            font-size: 14px;
+            color: var(--gray-400);
+            text-decoration: line-through;
+        }
+
+        .btn-add-cart {
+            padding: 12px;
+            background: var(--bosch-blue);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: var(--transition-fast);
+            box-shadow: 0 4px 12px rgba(0,85,164,0.25);
+        }
+
+        .btn-add-cart:hover {
+            background: var(--bosch-blue-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,85,164,0.35);
+        }
+
+        .btn-view {
+            padding: 12px;
+            background: white;
+            color: var(--bosch-blue);
+            border: 1.5px solid var(--bosch-blue);
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .btn-view:hover {
+            background: var(--bosch-blue-light);
+        }
+
+        /* ===== DETAIL PANEL - Product Showcase ===== */
+        .detail-panel {
+            position: sticky;
+            top: 88px;
+            height: fit-content;
+            max-height: calc(100vh - 104px);
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+
+        .detail-card {
+            background: white;
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--gray-200);
+            overflow: hidden;
+        }
+
+        .detail-gallery {
+            position: relative;
+            height: 280px;
+            background: var(--gray-100);
+            overflow: hidden;
+        }
+
+        .detail-gallery img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-badge {
+            position: absolute;
+            top: var(--space-3);
+            left: var(--space-3);
+            padding: 8px 16px;
+            background: var(--accent-green);
+            color: white;
+            font-size: 12px;
+            font-weight: 700;
+            border-radius: var(--radius-full);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .gallery-nav {
+            position: absolute;
+            bottom: var(--space-3);
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+        }
+
+        .gallery-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: var(--radius-full);
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .gallery-dot.active {
+            background: white;
+            width: 24px;
+        }
+
+        .detail-header {
+            padding: var(--space-4);
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .detail-brand {
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--bosch-blue);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .detail-name {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--gray-900);
+            line-height: 1.3;
+            margin-bottom: var(--space-2);
+        }
+
+        .detail-rating {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .stars {
+            color: #fbbf24;
+            font-size: 14px;
+        }
+
+        .rating-text {
+            font-size: 14px;
+            color: var(--gray-500);
+            font-weight: 500;
+        }
+
+        .detail-body {
+            padding: var(--space-4);
+        }
+
+        .detail-section {
+            margin-bottom: var(--space-4);
+        }
+
+        .detail-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .detail-section-title {
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--gray-400);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: var(--space-2);
+        }
+
+        .detail-text {
+            font-size: 14px;
+            color: var(--gray-600);
+            line-height: 1.7;
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-2);
+        }
+
+        .spec-item {
+            padding: var(--space-2);
+            background: var(--gray-50);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--gray-100);
+        }
+
+        .spec-label {
+            font-size: 11px;
+            color: var(--gray-400);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .spec-value {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--gray-800);
+        }
+
+        .compatibility-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .compatibility-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: var(--gray-50);
+            border-radius: var(--radius-md);
+            font-size: 13px;
+            color: var(--gray-700);
+            font-weight: 500;
+        }
+
+        .compatibility-item i {
+            color: var(--accent-green);
+        }
+
+        .cross-ref-box {
+            background: var(--bosch-blue-light);
+            border: 1px solid rgba(0,85,164,0.1);
+            border-radius: var(--radius-md);
+            padding: var(--space-3);
+        }
+
+        .cross-ref-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0,85,164,0.1);
+            font-size: 13px;
+        }
+
+        .cross-ref-item:last-child {
+            border-bottom: none;
+        }
+
+        .cross-ref-label {
+            color: var(--gray-500);
+            font-weight: 500;
+        }
+
+        .cross-ref-value {
+            font-family: 'SF Mono', monospace;
+            color: var(--bosch-blue);
+            font-weight: 700;
+        }
+
+        .detail-footer {
+            padding: var(--space-4);
+            border-top: 1px solid var(--gray-100);
+            background: var(--gray-50);
+        }
+
+        .detail-price-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-3);
+        }
+
+        .detail-price-label {
+            font-size: 14px;
+            color: var(--gray-500);
+            font-weight: 500;
+        }
+
+        .detail-price-value {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--gray-900);
+        }
+
+        .detail-actions {
+            display: flex;
+            gap: var(--space-2);
+        }
+
+        .btn-detail-primary {
+            flex: 1;
+            padding: 14px;
+            background: var(--bosch-blue);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 14px rgba(0,85,164,0.3);
+        }
+
+        .btn-detail-primary:hover {
+            background: var(--bosch-blue-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,85,164,0.4);
+        }
+
+        .btn-detail-secondary {
+            width: 52px;
+            height: 52px;
+            border: 1.5px solid var(--gray-300);
+            background: white;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--gray-600);
+            font-size: 20px;
+            transition: var(--transition-fast);
+        }
+
+        .btn-detail-secondary:hover {
+            border-color: var(--accent-red);
+            color: var(--accent-red);
+            background: rgba(255,23,68,0.05);
+        }
+
+        /* ===== MOBILE MENU & NAV ===== */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid var(--gray-200);
+            padding: 8px 0 calc(8px + env(safe-area-inset-bottom));
+            z-index: 5000;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+            pointer-events: auto;
+        }
+
+        .mobile-nav-items {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .mobile-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 8px 20px;
+            color: var(--gray-400);
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            position: relative;
+        }
+
+        .mobile-nav-item.active {
+            color: var(--bosch-blue);
+        }
+
+        .mobile-nav-item.active::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 4px;
+            background: var(--bosch-blue);
+            border-radius: var(--radius-full);
+        }
+
+        .mobile-nav-item i {
+            font-size: 22px;
+        }
+
+        .mobile-nav-item span {
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .mobile-menu-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 6000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .mobile-menu-overlay.show {
+            display: block;
+            opacity: 1;
+        }
+
+        .mobile-menu {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 80%;
+            max-width: 320px;
+            background: white;
+            box-shadow: var(--shadow-xl);
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-menu-overlay.show .mobile-menu {
+            transform: translateX(0);
+        }
+
+        .mobile-menu-header {
+            padding: var(--space-3) var(--space-4);
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .mobile-menu-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .mobile-user-icon {
+            font-size: 32px;
+            color: var(--gray-400);
+        }
+
+        .mobile-user-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .mobile-user-email {
+            font-size: 13px;
+            color: var(--gray-500);
+        }
+
+        .close-mobile-menu {
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: var(--gray-600);
+            cursor: pointer;
+        }
+
+        .mobile-menu-items {
+            flex: 1;
+            padding: var(--space-3) var(--space-2);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .mobile-menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: var(--gray-700);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            border-radius: var(--radius-md);
+            transition: var(--transition-fast);
+        }
+
+        .mobile-menu-item:hover {
+            background: var(--gray-100);
+            color: var(--bosch-blue);
+        }
+
+        .mobile-menu-item i {
+            width: 20px;
+            font-size: 18px;
+            color: var(--gray-400);
+        }
+
+        .mobile-menu-item:hover i {
+            color: var(--bosch-blue);
+        }
+
+        .logout-link {
+            margin-top: auto;
+            color: var(--accent-red);
+        }
+        .logout-link i {
+            color: var(--accent-red);
+        }
+
+        /* ===== VIEW CONTENT PANELS ===== */
+        .view-shell {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-4) var(--space-8);
+        }
+
+        /* Standard page structure */
+        .page-header {
+            margin-bottom: var(--space-6);
+        }
+
+        .page-title {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--gray-900);
+            margin-bottom: var(--space-2);
+        }
+
+        .page-subtitle {
+            font-size: 16px;
+            color: var(--gray-500);
+        }
+
+        /* Generic panels */
+        .card {
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-xl);
+            padding: var(--space-4);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .card h3 {
+            font-size: 20px;
+            color: var(--gray-900);
+            margin-bottom: var(--space-3);
+        }
+
+        /* Placeholder styles for new content pages */
+        .grid-2-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-4);
+            margin-bottom: var(--space-6);
+        }
+
+        /* Account page elements */
+        .user-field {
+            margin-bottom: var(--space-3);
+        }
+
+        .user-field-label {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--gray-400);
+            margin-bottom: 4px;
+        }
+
+        .user-field-value {
+            font-size: 16px;
+            color: var(--gray-800);
+            font-weight: 500;
+        }
+
+        /* Cart page elements */
+        .cart-summary {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-xl);
+            padding: var(--space-4);
+            position: sticky;
+            top: 88px;
+        }
+        .cart-totals {
+            margin: var(--space-4) 0;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-2);
+        }
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 15px;
+            color: var(--gray-600);
+        }
+        .total-row.grand-total {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--gray-900);
+            border-top: 1px solid var(--gray-200);
+            padding-top: var(--space-2);
+            margin-top: var(--space-2);
+        }
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        .quantity-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1px solid var(--gray-300);
+            background: white;
+            color: var(--gray-600);
+            cursor: pointer;
+        }
+
+        /* Orders page elements */
+        .order-card {
+            margin-bottom: var(--space-3);
+        }
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--space-2);
+            padding-bottom: var(--space-2);
+            border-bottom: 1px solid var(--gray-100);
+        }
+        .order-id {
+            font-weight: 700;
+            color: var(--bosch-blue);
+        }
+        .order-date {
+            color: var(--gray-500);
+            font-size: 14px;
+        }
+        .order-status {
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .status-delivered { background: rgba(0, 200, 83, 0.1); color: var(--accent-green); }
+        .status-processing { background: rgba(255, 107, 53, 0.1); color: var(--accent-orange); }
+
+        /* Existing View Specifics */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: var(--space-3);
+            margin-top: var(--space-5);
+        }
+
+        .signal-list,
+        .workflow-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .signal-item,
+        .workflow-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px 16px;
+            border-radius: var(--radius-lg);
+            background: var(--gray-50);
+            color: var(--gray-700);
+        }
+
+        .signal-item i,
+        .workflow-step i {
+            color: var(--bosch-blue);
+            margin-top: 2px;
+        }
+
+        .catalog-summary {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: var(--space-3);
+            margin-top: var(--space-5);
+        }
+
+        .lookup-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: var(--space-3);
+            margin-top: var(--space-4);
+        }
+
+        .lookup-card {
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-xl);
+            padding: var(--space-3);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .lookup-card h4 {
+            font-size: 17px;
+            color: var(--gray-900);
+            margin-bottom: 10px;
+        }
+
+        .lookup-card p {
+            color: var(--gray-500);
+            font-size: 14px;
+            margin-bottom: var(--space-2);
+        }
+
+        .pill-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .pill {
+            padding: 8px 12px;
+            border-radius: var(--radius-full);
+            background: var(--bosch-blue-light);
+            color: var(--bosch-blue);
+            font-size: 13px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .pill:hover {
+            background: var(--bosch-blue);
+            color: white;
+        }
+
+        /* ===== TOAST NOTIFICATIONS ===== */
+        .toast-container {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3000;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-2);
+            pointer-events: none;
+        }
+
+        .toast {
+            background: var(--gray-900);
+            color: white;
+            padding: 16px 24px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 500;
+            font-size: 14px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition-base);
+            pointer-events: auto;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .toast i {
+            font-size: 20px;
+            color: var(--accent-green);
+        }
+
+        .toast.error i {
+            color: var(--accent-red);
+        }
+
+        /* ===== MODAL OVERLAYS ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            z-index: 1500;
+        }
+
+        .modal-overlay.show {
+            display: block;
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 1200px) {
+            .results-layout {
+                grid-template-columns: 260px 1fr;
+            }
+            
+            .detail-panel {
+                display: none;
+                position: fixed;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                width: 100%;
+                max-width: 420px;
+                z-index: 2000;
+                background: white;
+                box-shadow: var(--shadow-xl);
+            }
+            
+            .detail-panel.mobile-open {
+                display: block;
+                animation: slideIn 0.3s ease;
+            }
+            
+            @keyframes slideIn {
+                from { transform: translateX(100%); }
+                to { transform: translateX(0); }
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                height: 64px;
+            }
+            
+            .nav-center, .nav-actions {
+                display: none;
+            }
+
+            .mobile-hamburg-btn {
+                display: flex;
+            }
+            
+            .hero-title {
+                font-size: 32px;
+            }
+            
+            .hero-subtitle {
+                font-size: 16px;
+            }
+            
+            .search-tabs {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+            
+            .search-tabs::-webkit-scrollbar {
+                display: none;
+            }
+            
+            .search-input-wrapper {
+                flex-wrap: wrap;
+            }
+            
+            .search-actions {
+                width: 100%;
+                margin-top: var(--space-2);
+            }
+            
+            .btn-scan, .btn-search {
+                flex: 1;
+                justify-content: center;
+            }
+            
+            .vin-bar {
+                flex-direction: column;
+                gap: var(--space-2);
+            }
+            
+            .vin-input {
+                max-width: 100%;
+                width: 100%;
+            }
+            
+            .categories-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: var(--space-2);
+            }
+            
+            .category-card {
+                padding: var(--space-3) var(--space-2);
+            }
+            
+            .utility-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .recent-searches {
+                order: 2;
+            }
+            
+            .utility-links {
+                order: 1;
+                justify-content: center;
+            }
+            
+            .results-layout {
+                grid-template-columns: 1fr;
+                padding: var(--space-2);
+            }
+
+            .view-shell,
+            .hero-section {
+                padding-left: var(--space-2);
+                padding-right: var(--space-2);
+            }
+
+            .grid-2-col,
+            .info-grid,
+            .lookup-grid,
+            .catalog-summary {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-panel {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 1600;
+                background: white;
+                max-height: 100vh;
+                padding: var(--space-4);
+            }
+            
+            .filter-panel.mobile-open {
+                display: block;
+            }
+            
+            .part-card {
+                flex-direction: column;
+            }
+            
+            .part-image {
+                width: 100%;
+                height: 200px;
+            }
+            
+            .part-actions {
+                flex-direction: row;
+                width: 100%;
+            }
+            
+            .btn-add-cart, .btn-view {
+                flex: 1;
+            }
+            
+            .mobile-nav {
+                display: block;
+            }
+            
+            .main-wrapper {
+                margin-bottom: 80px;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .card,
+            .lookup-card {
+                padding: var(--space-3);
+            }
+
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+        .stagger-4 { animation-delay: 0.4s; }
+        .stagger-5 { animation-delay: 0.5s; }
+
+        /* ===== SCROLLBAR STYLING ===== */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--gray-100);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gray-300);
+            border-radius: var(--radius-full);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gray-400);
+        }
+
+        /* View Management */
+        .view {
+            display: none !important;
+        }
+
+        .view.active {
+            display: block !important;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="brand" onclick="showView('home')">
+                <div class="brand-logo">
+                    <i class="fas fa-cog"></i>
+                </div>
+                <div class="brand-text">
+                    <span class="brand-name">Bosch Infocomm</span>
+                    <span class="brand-tagline">Professional</span>
+                </div>
+            </a>
+            
+            <div class="nav-center">
+                <button class="nav-tab active" id="nav-home" onclick="showView('home')">Search</button>
+                <button class="nav-tab" id="nav-results" onclick="showView('results')">Catalog</button>
+                <button class="nav-tab" id="nav-cross-ref" onclick="showView('cross-ref')">Cross Ref</button>
+                <button class="nav-tab" id="nav-vin-lookup" onclick="showView('vin-lookup')">VIN Lookup</button>
+            </div>
+            
+            <div class="nav-actions">
+                <button class="nav-btn" title="Search" onclick="showView('home')">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button class="nav-btn nav-btn-primary" title="Scan" onclick="scanBarcode()">
+                    <i class="fas fa-camera"></i>
+                    <span>Scan</span>
+                </button>
+                <button class="nav-btn" title="Account" onclick="showView('account')">
+                    <i class="fas fa-user-circle"></i>
+                </button>
+                <button class="nav-btn has-badge" title="Cart" onclick="showView('cart')">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>3</span>
+                </button>
+            </div>
+
+            <button class="mobile-hamburg-btn nav-btn" id="mobileHamburgBtn" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <div class="main-wrapper">
+        
+        <div id="home-view" class="view active">
+            <section class="hero-section">
+                <div class="hero-container">
+                    <div class="hero-badge animate-in">
+                        <i class="fas fa-bolt"></i>
+                        <span>AI-Powered Part Recognition</span>
+                    </div>
+                    
+                    <h1 class="hero-title animate-in stagger-1">
+                        Find the Perfect Part.<br>
+                        <span>Faster Than Ever.</span>
+                    </h1>
+                    
+                    <p class="hero-subtitle animate-in stagger-2">
+                        Intelligent search across 2M+ Bosch automotive parts. VIN, OE, or part number lookup.
+                    </p>
+                    
+                    <div class="search-command animate-in stagger-3">
+                        <div class="search-tabs">
+                            <button class="search-tab active" onclick="setSearchType(this, 'all')">
+                                <i class="fas fa-search"></i> All
+                            </button>
+                            <button class="search-tab" onclick="setSearchType(this, 'part')">
+                                <i class="fas fa-cog"></i> Part Number
+                            </button>
+                            <button class="search-tab" onclick="setSearchType(this, 'vehicle')">
+                                <i class="fas fa-car"></i> Vehicle
+                            </button>
+                            <button class="search-tab" onclick="setSearchType(this, 'oe')">
+                                <i class="fas fa-barcode"></i> OE Number
+                            </button>
+                            <button class="search-tab" onclick="setSearchType(this, 'vin')">
+                                <i class="fas fa-fingerprint"></i> VIN
+                            </button>
+                        </div>
+                        
+                        <div class="search-input-wrapper">
+                            <div class="search-icon-wrap">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <input type="text" 
+                                   class="search-input" 
+                                   id="mainSearch"
+                                   placeholder="Search parts, vehicles, or enter part number..."
+                                   autocomplete="off">
+                            
+                            <div class="search-actions">
+                                <button class="btn-scan" onclick="scanBarcode()">
+                                    <i class="fas fa-camera"></i>
+                                    <span>Scan</span>
+                                </button>
+                                <button class="btn-search" onclick="performSearch()">
+                                    <i class="fas fa-arrow-right"></i>
+                                    <span>Search</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="vin-bar animate-in stagger-4">
+                        <span class="vin-label">
+                            <i class="fas fa-car-side"></i>
+                            Quick VIN Lookup
+                        </span>
+                        <input type="text" 
+                               class="vin-input" 
+                               placeholder="WAUZZZ8K9AA123456"
+                               maxlength="17"
+                               id="vinInput">
+                        <button class="btn-vin" onclick="lookupVIN()">
+                            <i class="fas fa-search"></i>
+                            Identify
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="categories-section">
+                <div class="section-header animate-in stagger-5">
+                    <span class="section-label">Vehicle Type</span>
+                    <h2 class="section-title">Select Your Category</h2>
+                    <p class="section-subtitle">Browse parts by vehicle classification</p>
+                </div>
+                
+                <div class="categories-grid">
+                    <div class="category-card" onclick="selectCategory('cars')" data-category="cars">
+                        <div class="category-icon">
+                            <i class="fas fa-car"></i>
+                        </div>
+                        <div class="category-name">Cars</div>
+                        <div class="category-count">1.2M parts</div>
+                    </div>
+                    
+                    <div class="category-card" onclick="selectCategory('motorcycles')" data-category="motorcycles">
+                        <div class="category-icon">
+                            <i class="fas fa-motorcycle"></i>
+                        </div>
+                        <div class="category-name">Motorcycles</div>
+                        <div class="category-count">450K parts</div>
+                    </div>
+                    
+                    <div class="category-card" onclick="selectCategory('trucks')" data-category="trucks">
+                        <div class="category-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <div class="category-name">Trucks</div>
+                        <div class="category-count">320K parts</div>
+                    </div>
+                    
+                    <div class="category-card" onclick="selectCategory('tractors')" data-category="tractors">
+                        <div class="category-icon">
+                            <i class="fas fa-tractor"></i>
+                        </div>
+                        <div class="category-name">Tractors</div>
+                        <div class="category-count">180K parts</div>
+                    </div>
+                    
+                    <div class="category-card" onclick="selectCategory('ev')" data-category="ev">
+                        <div class="category-icon">
+                            <i class="fas fa-charging-station"></i>
+                        </div>
+                        <div class="category-name">Sustainable</div>
+                        <div class="category-count">95K parts</div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="utility-strip">
+                <div class="utility-container">
+                    <div class="recent-searches">
+                        <span class="recent-label">
+                            <i class="fas fa-history"></i>
+                            Recent:
+                        </span>
+                        <span class="recent-chip" onclick="quickSearch('Brake pads BMW X5')">Brake pads BMW X5</span>
+                        <span class="recent-chip" onclick="quickSearch('Oil filter 0986AF0150')">Oil filter 0986AF0150</span>
+                        <span class="recent-chip" onclick="quickSearch('Spark plug FR7KPP33')">Spark plug FR7KPP33</span>
+                        <span class="recent-chip" onclick="quickSearch('Bosch 0 242 235 666')">Bosch 0 242 235 666</span>
+                    </div>
+                    
+                    <div class="utility-links">
+                        <button class="utility-link" onclick="showView('cross-ref')">
+                            <i class="fas fa-exchange-alt"></i>
+                            Cross Reference
+                        </button>
+                        <button class="utility-link" onclick="showToast('Bulk upload opened')">
+                            <i class="fas fa-file-upload"></i>
+                            Bulk Search
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="results-view" class="view">
+            <div class="results-layout">
+                <aside class="filter-panel" id="filterPanel">
+                    <button class="nav-btn" onclick="toggleFilters()" style="position: absolute; top: 16px; right: 16px; display: none;" id="closeFilters">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    
+                    <div class="filter-card">
+                        <div class="filter-header">
+                            <span class="filter-title">
+                                <i class="fas fa-filter"></i>
+                                Filters
+                            </span>
+                            <button class="btn-text" onclick="clearFilters()">Reset</button>
+                        </div>
+                        <div class="filter-body">
+                            <div class="filter-group">
+                                <label class="filter-label">Vehicle Brand</label>
+                                <select class="filter-select" onchange="applyFilter('brand', this.value)">
+                                    <option value="">All Brands</option>
+                                    <option value="bmw">BMW</option>
+                                    <option value="mercedes">Mercedes-Benz</option>
+                                    <option value="audi">Audi</option>
+                                    <option value="vw">Volkswagen</option>
+                                    <option value="toyota">Toyota</option>
+                                    <option value="honda">Honda</option>
+                                    <option value="ford">Ford</option>
+                                </select>
+                            </div>
+                            
+                            <div class="filter-group">
+                                <label class="filter-label">Model</label>
+                                <select class="filter-select" id="modelSelect" disabled>
+                                    <option>Select brand first</option>
+                                </select>
+                            </div>
+                            
+                            <div class="filter-group">
+                                <label class="filter-label">Year Range</label>
+                                <select class="filter-select">
+                                    <option>All Years</option>
+                                    <option>2024 - 2020</option>
+                                    <option>2019 - 2015</option>
+                                    <option>2014 - 2010</option>
+                                    <option>2009 - 2005</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-card">
+                        <div class="filter-header">
+                            <span class="filter-title">
+                                <i class="fas fa-gas-pump"></i>
+                                Fuel Type
+                            </span>
+                        </div>
+                        <div class="filter-body">
+                            <div class="checkbox-list">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" checked onchange="toggleFilter(this)">
+                                    <span class="checkbox-label">Petrol</span>
+                                    <span class="checkbox-count">1,245</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" checked onchange="toggleFilter(this)">
+                                    <span class="checkbox-label">Diesel</span>
+                                    <span class="checkbox-count">892</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" onchange="toggleFilter(this)">
+                                    <span class="checkbox-label">Electric</span>
+                                    <span class="checkbox-count">234</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" onchange="toggleFilter(this)">
+                                    <span class="checkbox-label">Hybrid</span>
+                                    <span class="checkbox-count">567</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+
+                <section class="results-center">
+                    <div class="results-header">
+                        <div class="results-info" id="resultsInfo">
+                            Showing <strong>1-6</strong> of <strong>2,847</strong> results for <strong>"Brake pads"</strong>
+                        </div>
+                        <div class="results-toolbar">
+                            <button class="toolbar-btn" onclick="toggleFilters()">
+                                <i class="fas fa-filter"></i>
+                                Filters
+                            </button>
+                            <button class="toolbar-btn active">
+                                <i class="fas fa-list"></i>
+                                List
+                            </button>
+                            <button class="toolbar-btn">
+                                <i class="fas fa-th-large"></i>
+                                Grid
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="catalogHub" style="display: none; margin-bottom: var(--space-6);">
+                        <section class="section-hub">
+                            <h2 style="font-size: 24px; margin-bottom: 20px; color: var(--gray-900);">Global Parts Catalog</h2>
+                            <div class="categories-grid" style="grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));">
+                                <div class="category-card" onclick="filterResults('brake')">
+                                    <div class="category-icon" style="background: var(--bosch-blue-light); color: var(--bosch-blue);">
+                                        <i class="fas fa-life-ring"></i>
+                                    </div>
+                                    <div class="category-name">Braking Systems</div>
+                                    <div class="category-count">Discs, Pads, Sensors</div>
+                                </div>
+                                <div class="category-card" onclick="filterResults('filter')">
+                                    <div class="category-icon" style="background: var(--accent-orange-light); color: var(--accent-orange);">
+                                        <i class="fas fa-filter"></i>
+                                    </div>
+                                    <div class="category-name">Filters</div>
+                                    <div class="category-count">Oil, Air, Fuel, Cabin</div>
+                                </div>
+                                <div class="category-card" onclick="filterResults('plug')">
+                                    <div class="category-icon" style="background: var(--accent-red-light); color: var(--accent-red);">
+                                        <i class="fas fa-bolt"></i>
+                                    </div>
+                                    <div class="category-name">Ignition</div>
+                                    <div class="category-count">Spark Plugs, Coils</div>
+                                </div>
+                                <div class="category-card" onclick="filterResults('wiper')">
+                                    <div class="category-icon" style="background: var(--bosch-blue-light); color: var(--bosch-blue);">
+                                        <i class="fas fa-windshield"></i>
+                                    </div>
+                                    <div class="category-name">Wipers</div>
+                                    <div class="category-count">Aerotwin, ClearAdvantage</div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                    <div class="results-list" id="resultsList">
+                        <div class="part-card" onclick="selectPart(this, 1)">
+                            <div class="part-image">
+                                <img src="https://imi-web-img.moonshot.cn/img/www.shutterstock.com/67b9b2fea690f3662b50a6ca7c7d4ea0abd411d3.jpg" alt="Brake Pads">
+                            </div>
+                            <div class="part-content">
+                                <div class="part-badges">
+                                    <span class="badge badge-bosch">Bosch</span>
+                                    <span class="badge badge-stock">In Stock</span>
+                                </div>
+                                <div class="part-number">0 986 494 059</div>
+                                <h3 class="part-name">QuietCast Premium Disc Brake Pad Set</h3>
+                                <p class="part-description">Premium ceramic brake pads with hardware kit. Superior stopping power and ultra-low dust formula for luxury vehicles.</p>
+                                <div class="part-meta">
+                                    <span class="meta-tag"><i class="fas fa-car"></i> BMW X5, X6, X7</span>
+                                    <span class="meta-tag"><i class="fas fa-calendar"></i> 2019-2024</span>
+                                    <span class="meta-tag"><i class="fas fa-check-circle"></i> Front Axle</span>
+                                </div>
+                            </div>
+                            <div class="part-actions">
+                                <div class="part-price">
+                                    <div class="price-current">$89.99</div>
+                                    <div class="price-original">$124.99</div>
+                                </div>
+                                <button class="btn-add-cart" onclick="event.stopPropagation(); addToCart('QuietCast Brake Pads')">
+                                    <i class="fas fa-plus"></i> Add
+                                </button>
+                                <button class="btn-view" onclick="event.stopPropagation(); showPartDetail(1)">
+                                    Details
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="part-card" onclick="selectPart(this, 2)">
+                            <div class="part-image">
+                                <img src="https://imi-web-img.moonshot.cn/img/c8.alamy.com/226d32755d9f789d14064727abd5edf4b1fbce66.jpg" alt="Brake Pads">
+                            </div>
+                            <div class="part-content">
+                                <div class="part-badges">
+                                    <span class="badge badge-bosch">Bosch</span>
+                                    <span class="badge badge-stock">In Stock</span>
+                                </div>
+                                <div class="part-number">0 986 494 096</div>
+                                <h3 class="part-name">Blue Disc Brake Pad Set Front</h3>
+                                <p class="part-description">Semi-metallic brake pads for everyday driving. Excellent value with OE quality standards and consistent performance.</p>
+                                <div class="part-meta">
+                                    <span class="meta-tag"><i class="fas fa-car"></i> Audi A4, A5, Q5</span>
+                                    <span class="meta-tag"><i class="fas fa-calendar"></i> 2016-2023</span>
+                                    <span class="meta-tag"><i class="fas fa-check-circle"></i> Front</span>
+                                </div>
+                            </div>
+                            <div class="part-actions">
+                                <div class="part-price">
+                                    <div class="price-current">$56.99</div>
+                                </div>
+                                <button class="btn-add-cart" onclick="event.stopPropagation(); addToCart('Blue Brake Pads')">
+                                    <i class="fas fa-plus"></i> Add
+                                </button>
+                                <button class="btn-view" onclick="event.stopPropagation(); showPartDetail(2)">
+                                    Details
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="part-card" onclick="selectPart(this, 3)">
+                            <div class="part-image">
+                                <img src="https://imi-web-img.moonshot.cn/img/c8.alamy.com/703e74d2a47449de89e62da193830a9a0efd64c2.jpg" alt="Brake Pads">
+                            </div>
+                            <div class="part-content">
+                                <div class="part-badges">
+                                    <span class="badge badge-bosch">Bosch</span>
+                                    <span class="badge badge-low">Low Stock</span>
+                                </div>
+                                <div class="part-number">0 986 494 123</div>
+                                <h3 class="part-name">EuroLine Brake Pad Set</h3>
+                                <p class="part-description">Engineered for European vehicles. Low noise operation and excellent fade resistance under high-temperature conditions.</p>
+                                <div class="part-meta">
+                                    <span class="meta-tag"><i class="fas fa-car"></i> Mercedes C, E, S-Class</span>
+                                    <span class="meta-tag"><i class="fas fa-calendar"></i> 2018-2024</span>
+                                    <span class="meta-tag"><i class="fas fa-check-circle"></i> Front & Rear</span>
+                                </div>
+                            </div>
+                            <div class="part-actions">
+                                <div class="part-price">
+                                    <div class="price-current">$124.99</div>
+                                </div>
+                                <button class="btn-add-cart" onclick="event.stopPropagation(); addToCart('EuroLine Brake Pads')">
+                                    <i class="fas fa-plus"></i> Add
+                                </button>
+                                <button class="btn-view" onclick="event.stopPropagation(); showPartDetail(3)">
+                                    Details
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <aside class="detail-panel" id="detailPanel">
+                    <button class="nav-btn" onclick="closeDetail()" style="position: absolute; top: 16px; right: 16px; z-index: 10; display: none;" id="closeDetail">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    
+                    <div class="detail-card">
+                        <div class="detail-gallery">
+                            <img src="https://imi-web-img.moonshot.cn/img/www.shutterstock.com/67b9b2fea690f3662b50a6ca7c7d4ea0abd411d3.jpg" alt="Part Detail" id="detailImage">
+                            <span class="gallery-badge">In Stock</span>
+                            <div class="gallery-nav">
+                                <span class="gallery-dot active"></span>
+                                <span class="gallery-dot"></span>
+                                <span class="gallery-dot"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-header">
+                            <div class="detail-brand">Bosch Original Equipment</div>
+                            <h2 class="detail-name" id="detailName">QuietCast Premium Disc Brake Pad Set</h2>
+                            <div class="part-number detail-part-number">0 986 494 059</div>
+                        </div>
+                        
+                        <div class="detail-body">
+                            <div class="detail-section">
+                                <h4 class="detail-section-title">Description</h4>
+                                <p class="detail-text" id="detailDescription">
+                                    Premium ceramic brake pads engineered for superior stopping power and minimal dust. Includes premium hardware kit. Front Axle.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-footer">
+                            <div class="detail-price-row">
+                                <span class="detail-price-label">Your Price</span>
+                                <span class="detail-price-value" id="detailPrice">$89.99</span>
+                            </div>
+                            <div class="detail-actions">
+                                <button class="btn-detail-secondary" onclick="toggleFavorite()">
+                                    <i class="far fa-heart" id="favIcon"></i>
+                                </button>
+                                <button class="btn-detail-primary" onclick="addToCart('QuietCast Brake Pads')">
+                                    <i class="fas fa-shopping-cart"></i>
+                                    Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+
+        <div id="cross-ref-view" class="view">
+            <section class="hero-section">
+                <div class="hero-container">
+                    <div class="hero-badge animate-in">
+                        <i class="fas fa-exchange-alt"></i>
+                        <span>Interchange System</span>
+                    </div>
+                    <h2 class="hero-title animate-in stagger-1">OE Cross Reference</h2>
+                    <p class="hero-subtitle animate-in stagger-2">Find the Bosch equivalent for any OE or competitor part number instantly.</p>
+                    
+                    <div class="search-command animate-in stagger-3">
+                        <div class="search-input-wrapper">
+                            <div class="search-icon-wrap">
+                                <i class="fas fa-exchange-alt"></i>
+                            </div>
+                            <input type="text" class="search-input" placeholder="Enter OE number (e.g., 34106859182)..." id="crossRefInput">
+                            <div class="search-actions">
+                                <button class="btn-search" onclick="performCrossRef()">
+                                    <span>Find Match</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="view-shell">
+                <div class="catalog-summary card animate-in stagger-4">
+                    <div class="feature-panel">
+                        <h3>How Cross Reference Works</h3>
+                        <p>Technicians can paste an OE number, supplier number, or workshop reference and immediately see the Bosch replacement path.</p>
+                        <div class="workflow-list">
+                            <div class="workflow-step">
+                                <i class="fas fa-hashtag"></i>
+                                <div>
+                                    <strong>Enter Any Known Number</strong>
+                                    <div>OE, aftermarket, workshop invoice, or packaging label.</div>
+                                </div>
+                            </div>
+                            <div class="workflow-step">
+                                <i class="fas fa-check-double"></i>
+                                <div>
+                                    <strong>Confirm Vehicle Compatibility</strong>
+                                    <div>Validate the result against platform, year range, and mounting position.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="vin-lookup-view" class="view">
+            <section class="hero-section">
+                <div class="hero-container">
+                    <div class="hero-badge animate-in">
+                        <i class="fas fa-fingerprint"></i>
+                        <span>Smart Decode</span>
+                    </div>
+                    <h2 class="hero-title animate-in stagger-1">VIN Identification</h2>
+                    <p class="hero-subtitle animate-in stagger-2">Identify your vehicle precisely to find 100% compatible parts.</p>
+                    
+                    <div class="vin-bar animate-in stagger-3" style="max-width: 800px;">
+                        <input type="text" class="vin-input" placeholder="ENTER 17-CHARACTER VIN" maxlength="17" id="vinViewInput" style="max-width: none;">
+                        <button class="btn-vin" onclick="lookupVINView()">
+                            <i class="fas fa-search"></i>
+                            Identify Vehicle
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="view-shell">
+                <div class="info-grid animate-in stagger-4">
+                    <article class="lookup-card">
+                        <h4>Decoded Vehicle Data</h4>
+                        <p>System narrows the catalog using platform-level identifiers.</p>
+                        <div class="pill-row">
+                            <span class="pill">Make</span>
+                            <span class="pill">Model</span>
+                            <span class="pill">Year</span>
+                            <span class="pill">Engine</span>
+                        </div>
+                    </article>
+                    <article class="lookup-card">
+                        <h4>Quick VIN Examples</h4>
+                        <div class="pill-row">
+                            <button class="pill" onclick="document.getElementById('vinViewInput').value='5UXCR6C07M9D12345'; lookupVINView()">BMW X5</button>
+                            <button class="pill" onclick="document.getElementById('vinViewInput').value='WAUZZZF44NA123456'; lookupVINView()">Audi A4</button>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </div>
+
+        <div id="account-view" class="view">
+            <section class="view-shell" style="padding-top: var(--space-6);">
+                <div class="page-header animate-in">
+                    <h1 class="page-title">My Account</h1>
+                    <p class="page-subtitle">Manage your personal information and workshop details.</p>
+                </div>
+                
+                <div class="grid-2-col animate-in stagger-1">
+                    <div class="card">
+                        <h3>Personal Information</h3>
+                        <div class="grid-2-col" style="margin-bottom: 0;">
+                            <div class="user-field">
+                                <div class="user-field-label">Full Name</div>
+                                <div class="user-field-value">John Doe</div>
+                            </div>
+                            <div class="user-field">
+                                <div class="user-field-label">Username</div>
+                                <div class="user-field-value">john_doe_workshop</div>
+                            </div>
+                        </div>
+                        <div class="user-field">
+                            <div class="user-field-label">Email Address</div>
+                            <div class="user-field-value">john.doe@example.com</div>
+                        </div>
+                        <button class="btn-text">Edit Details</button>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Workshop Details</h3>
+                        <div class="user-field">
+                            <div class="user-field-label">Workshop Name</div>
+                            <div class="user-field-value">JD Auto Services</div>
+                        </div>
+                        <div class="user-field">
+                            <div class="user-field-label">Address</div>
+                            <div class="user-field-value">123 Mechanics Lane, Autoville, CA 90001</div>
+                        </div>
+                        <button class="btn-text">Update Workshop</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="profile-view" class="view">
+            <section class="view-shell" style="padding-top: var(--space-6);">
+                <div class="page-header animate-in">
+                    <h1 class="page-title">My Profile</h1>
+                    <p class="page-subtitle">View and update your public profile settings.</p>
+                </div>
+                
+                <div class="card animate-in stagger-1">
+                    <div style="display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-3);">
+                        <i class="fas fa-user-circle" style="font-size: 64px; color: var(--gray-300);"></i>
+                        <div>
+                            <h3>JD Auto Services</h3>
+                            <p style="color: var(--gray-500);">Verified Professional Partner</p>
+                        </div>
+                    </div>
+                    <button class="btn-detail-primary">Change Avatar</button>
+                </div>
+            </section>
+        </div>
+
+        <div id="orders-view" class="view">
+            <section class="view-shell" style="padding-top: var(--space-6);">
+                <div class="page-header animate-in">
+                    <h1 class="page-title">My Orders</h1>
+                    <p class="page-subtitle">Track and manage your past part purchases.</p>
+                </div>
+                
+                <div class="results-list animate-in stagger-1">
+                    <div class="order-card card">
+                        <div class="order-header">
+                            <div>
+                                <span class="order-id">#ORD-12345</span>
+                                <span class="order-date">Placed on Oct 25, 2023</span>
+                            </div>
+                            <span class="order-status status-processing">Processing</span>
+                        </div>
+                        <div class="total-row grand-total">
+                            <span>Total</span>
+                            <span>$146.98</span>
+                        </div>
+                        <button class="btn-text" onclick="showToast('View order #ORD-12345 details')">View Order Details</button>
+                    </div>
+                    <div class="order-card card">
+                        <div class="order-header">
+                            <div>
+                                <span class="order-id">#ORD-12344</span>
+                                <span class="order-date">Placed on Oct 10, 2023</span>
+                            </div>
+                            <span class="order-status status-delivered">Delivered</span>
+                        </div>
+                        <div class="total-row grand-total">
+                            <span>Total</span>
+                            <span>$89.99</span>
+                        </div>
+                        <button class="btn-text" onclick="showToast('View order #ORD-12344 details')">View Order Details</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="cart-view" class="view">
+            <section class="view-shell" style="padding-top: var(--space-6);">
+                <div class="page-header animate-in">
+                    <h1 class="page-title">Shopping Cart</h1>
+                    <p class="page-subtitle">Review and update parts before final checkout.</p>
+                </div>
+                
+                <div class="catalog-summary animate-in stagger-1">
+                    <div class="results-list">
+                        <div class="part-card">
+                            <div class="part-image">
+                                <img src="https://imi-web-img.moonshot.cn/img/www.shutterstock.com/67b9b2fea690f3662b50a6ca7c7d4ea0abd411d3.jpg" alt="Brake Pads">
+                            </div>
+                            <div class="part-content">
+                                <div class="part-number">0 986 494 059</div>
+                                <h3 class="part-name">QuietCast Premium Disc Brake Pad Set</h3>
+                                <p class="price-current">$89.99</p>
+                                <div class="quantity-control">
+                                    <button class="quantity-btn">-</button>
+                                    <span>1</span>
+                                    <button class="quantity-btn">+</button>
+                                    <button class="btn-text" style="color: var(--accent-red); margin-left: var(--space-2);">Remove</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="cart-summary card">
+                        <h3>Cart Summary (1 item)</h3>
+                        <div class="cart-totals">
+                            <div class="total-row">
+                                <span>Subtotal</span>
+                                <span>$89.99</span>
+                            </div>
+                            <div class="total-row">
+                                <span>Shipping</span>
+                                <span>$15.00</span>
+                            </div>
+                            <div class="total-row grand-total">
+                                <span>Total</span>
+                                <span>$104.99</span>
+                            </div>
+                        </div>
+                        <button class="btn-detail-primary" style="width: 100%;">Proceed to Checkout</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <nav class="mobile-nav">
+        <div class="mobile-nav-items">
+            <button class="mobile-nav-item active" id="mobile-nav-home" onclick="showView('home')">
+                <i class="fas fa-search"></i>
+                <span>Search</span>
+            </button>
+            <button class="mobile-nav-item" id="mobile-nav-results" onclick="showView('results')">
+                <i class="fas fa-warehouse"></i>
+                <span>Catalog</span>
+            </button>
+            <button class="mobile-nav-item" id="mobile-nav-cross-ref" onclick="showView('cross-ref')">
+                <i class="fas fa-exchange-alt"></i>
+                <span>Cross Ref</span>
+            </button>
+            <button class="mobile-nav-item" id="mobile-nav-vin-lookup" onclick="showView('vin-lookup')">
+                <i class="fas fa-fingerprint"></i>
+                <span>VIN</span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay" onclick="toggleMobileMenu()">
+        <div class="mobile-menu" id="mobileMenu" onclick="event.stopPropagation()">
+            <div class="mobile-menu-header">
+                <div class="mobile-menu-user">
+                    <i class="fas fa-user-circle mobile-user-icon"></i>
+                    <div>
+                        <div class="mobile-user-name">Professional User</div>
+                        <div class="mobile-user-email">user@example.com</div>
+                    </div>
+                </div>
+                <button class="close-mobile-menu" onclick="toggleMobileMenu()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="mobile-menu-items">
+                <a href="#" class="mobile-menu-item" onclick="showView('profile'); toggleMobileMenu()">
+                    <i class="fas fa-id-card"></i> Profile
+                </a>
+                <a href="#" class="mobile-menu-item" onclick="showView('account'); toggleMobileMenu()">
+                    <i class="fas fa-user-cog"></i> Account
+                </a>
+                <a href="#" class="mobile-menu-item" onclick="showView('orders'); toggleMobileMenu()">
+                    <i class="fas fa-box"></i> Orders
+                </a>
+                <a href="#" class="mobile-menu-item" onclick="showView('cart'); toggleMobileMenu()">
+                    <i class="fas fa-shopping-cart"></i> Cart
+                </a>
+                <a href="#" class="mobile-menu-item logout-link" onclick="showToast('Logged out'); toggleMobileMenu()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <div class="modal-overlay" id="modalOverlay" onclick="closeAllModals()"></div>
+
+    <script>
+        // Part Data Database
+        const partDatabase = {
+            1: {
+                image: 'https://imi-web-img.moonshot.cn/img/www.shutterstock.com/67b9b2fea690f3662b50a6ca7c7d4ea0abd411d3.jpg',
+                brand: 'Bosch Original Equipment',
+                name: 'QuietCast Premium Disc Brake Pad Set',
+                number: '0 986 494 059',
+                price: '$89.99',
+                originalPrice: '$124.99',
+                description: 'Premium ceramic brake pads engineered for superior stopping power and minimal dust. Includes premium hardware kit. Front Axle.',
+                stock: 'In Stock',
+                rating: '4.7',
+                reviews: '234'
+            },
+            2: {
+                image: 'https://imi-web-img.moonshot.cn/img/c8.alamy.com/226d32755d9f789d14064727abd5edf4b1fbce66.jpg',
+                brand: 'Bosch Blue Line',
+                name: 'Blue Disc Brake Pad Set Front',
+                number: '0 986 494 096',
+                price: '$56.99',
+                description: 'Semi-metallic brake pads designed for everyday driving with excellent value. OE quality standards ensure reliable stopping performance.',
+                stock: 'In Stock',
+                rating: '4.5',
+                reviews: '189'
+            },
+            3: {
+                image: 'https://imi-web-img.moonshot.cn/img/c8.alamy.com/703e74d2a47449de89e62da193830a9a0efd64c2.jpg',
+                brand: 'Bosch EuroLine',
+                name: 'EuroLine Brake Pad Set',
+                number: '0 986 494 123',
+                price: '$124.99',
+                description: 'Engineered specifically for European vehicles. Features low noise operation and excellent fade resistance. Front Axle.',
+                stock: 'Low Stock',
+                rating: '4.8',
+                reviews: '312'
+            }
+        };
+
+        // ===== VIEW MANAGEMENT AND TAB SWITCHING =====
+        function showView(viewName) {
+            // Remove 'active' class from all generic part cards
+            document.querySelectorAll('.part-card').forEach(c => c.classList.remove('active'));
+
+            // Hide all views
+            document.querySelectorAll('.view').forEach(view => {
+                view.classList.remove('active');
+            });
+            
+            // Show the target view
+            const targetView = document.getElementById(viewName + '-view');
+            if (targetView) targetView.classList.add('active');
+            
+            // === Update active nav states ===
+            // Standard bottom bar mobile tabs
+            const mobileBarTabs = ['home', 'results', 'cross-ref', 'vin-lookup'];
+            
+            // Update Desktop Navigation
+            document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.nav-actions .nav-btn').forEach(btn => btn.classList.remove('active'));
+            
+            // Check if standard tab
+            const desktopTab = document.getElementById('nav-' + viewName);
+            if (desktopTab) {
+                desktopTab.classList.add('active');
+            } else {
+                // Check if account or cart views in nav-actions
+                const desktopActionBtn = document.querySelector(`.nav-actions .nav-btn[onclick="showView('${viewName}')"]`);
+                if (desktopActionBtn) desktopActionBtn.classList.add('active');
+            }
+
+            // Update Mobile Bar Navigation
+            document.querySelectorAll('.mobile-nav-item').forEach(tab => tab.classList.remove('active'));
+            if (mobileBarTabs.includes(viewName)) {
+                const mobileTab = document.getElementById('mobile-nav-' + viewName);
+                if (mobileTab) mobileTab.classList.add('active');
+            }
+
+            // Scrolls to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            closeAllModals(); 
+        }
+
+        // ===== MOBILE MENU TOGGLE =====
+        function toggleMobileMenu() {
+            const overlay = document.getElementById('mobileMenuOverlay');
+            overlay.classList.toggle('show');
+            document.body.style.overflow = overlay.classList.contains('show') ? 'hidden' : ''; // Prevent scrolling behind menu
+        }
+
+        // Search Filter Engine
+        function filterResults(query) {
+            const normalizedQuery = (query || '').trim().toLowerCase();
+            const cards = document.querySelectorAll('.part-card');
+            let visibleCount = 0;
+
+            cards.forEach((card) => {
+                const searchableText = card.textContent.toLowerCase();
+                const isVisible = searchableText.includes(normalizedQuery);
+                card.style.display = isVisible ? 'flex' : 'none';
+                if (isVisible) visibleCount += 1;
+            });
+
+            const infoText = document.getElementById('resultsInfo');
+            infoText.innerHTML = visibleCount === 0 
+                ? `No results found for <strong>"${query}"</strong>.` 
+                : `Showing <strong>${visibleCount}</strong> results for <strong>"${query}"</strong>`;
+
+            // Reset view state
+            document.getElementById('catalogHub').style.display = 'none';
+            document.getElementById('resultsList').style.display = 'flex';
+        }
+
+        // Standard Search Execution
+        function performSearch() {
+            const query = document.getElementById('mainSearch').value.trim();
+            if (!query) return showToast('Please enter a search term', 'error');
+            
+            showView('results');
+            showToast(`Searching for "${query}"...`);
+            filterResults(query);
+        }
+        
+        function quickSearch(query) {
+            document.getElementById('mainSearch').value = query;
+            performSearch();
+        }
+
+        // Part Selection & Detail Panel
+        function selectPart(card, partId) {
+            // Remove active from any part card in any view
+            document.querySelectorAll('.part-card').forEach(c => c.classList.remove('active'));
+            card.classList.add('active');
+            updateDetailPanel(partId);
+            
+            // Mobile: open detail panel overlay
+            if (window.innerWidth <= 1200) {
+                document.getElementById('detailPanel').classList.add('mobile-open');
+                document.getElementById('modalOverlay').classList.add('show');
+                document.getElementById('closeDetail').style.display = 'flex';
+            }
+        }
+
+        function updateDetailPanel(partId) {
+            const data = partDatabase[partId];
+            if (!data) return;
+            document.getElementById('detailImage').src = data.image;
+            document.querySelector('.detail-brand').textContent = data.brand;
+            document.getElementById('detailName').textContent = data.name;
+            document.querySelector('.detail-part-number').textContent = data.number;
+            document.getElementById('detailDescription').textContent = data.description;
+            document.getElementById('detailPrice').textContent = data.price;
+        }
+
+        function showPartDetail(partId) {
+            const cards = document.querySelectorAll('.part-card');
+            if(cards[partId - 1]) selectPart(cards[partId - 1], partId);
+        }
+
+        function closeDetail() {
+            document.getElementById('detailPanel').classList.remove('mobile-open');
+            document.getElementById('modalOverlay').classList.remove('show');
+            document.getElementById('closeDetail').style.display = 'none';
+        }
+
+        // VIN Lookup Logic
+        function lookupVIN() { processVIN(document.getElementById('vinInput').value.trim()); }
+        function lookupVINView() { processVIN(document.getElementById('vinViewInput').value.trim()); }
+        function processVIN(vin) {
+            if (vin.length === 17) {
+                showToast(`✓ VIN Decoded: 2021 BMW X5`);
+                setTimeout(() => {
+                    document.getElementById('mainSearch').value = 'BMW X5';
+                    performSearch();
+                }, 1000);
+            } else {
+                showToast('Please enter a valid 17-character VIN', 'error');
+            }
+        }
+
+        // Cross Reference Logic
+        function performCrossRef() {
+            const query = document.getElementById('crossRefInput').value.trim();
+            if (query) {
+                showToast(`Matching "${query}"...`);
+                setTimeout(() => {
+                    document.getElementById('mainSearch').value = query;
+                    showView('results');
+                    filterResults('QuietCast'); 
+                    showToast(`✓ Result found: matched to ${query}`);
+                }, 800);
+            } else {
+                showToast('Please enter a part number', 'error');
+            }
+        }
+
+        // Barcode Scan
+        function scanBarcode() {
+            showToast('📷 Camera activated. Point at barcode...');
+            setTimeout(() => {
+                showToast('✓ Scanned: 0 986 494 059');
+                document.getElementById('mainSearch').value = '0 986 494 059';
+                performSearch();
+            }, 2000);
+        }
+
+        // UI Helpers
+        function addToCart(itemName) {
+            showToast(`✓ Added to cart: ${itemName}`);
+            const cartBadge = document.querySelector('.nav-actions .nav-btn.has-badge span');
+            if (cartBadge) cartBadge.textContent = parseInt(cartBadge.textContent) + 1;
+        }
+
+        function toggleFavorite() {
+            const icon = document.getElementById('favIcon');
+            const isFav = icon.classList.contains('fas');
+            icon.className = isFav ? 'far fa-heart' : 'fas fa-heart';
+            icon.style.color = isFav ? '' : 'var(--accent-red)';
+            showToast(isFav ? 'Removed from favorites' : 'Added to favorites');
+        }
+
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            const icon = type === 'error' ? 'fa-exclamation-circle' : 'fa-check-circle';
+            toast.innerHTML = `<i class="fas ${icon}"></i><span>${message}</span>`;
+            
+            container.appendChild(toast);
+            setTimeout(() => toast.classList.add('show'), 10);
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        function closeAllModals() {
+            const filterPanel = document.getElementById('filterPanel');
+            const detailPanel = document.getElementById('detailPanel');
+            if(filterPanel) filterPanel.classList.remove('mobile-open');
+            if(detailPanel) detailPanel.classList.remove('mobile-open');
+            document.getElementById('modalOverlay').classList.remove('show');
+            document.getElementById('closeFilters').style.display = 'none';
+            document.getElementById('closeDetail').style.display = 'none';
+        }
+
+        // Init
+        document.addEventListener('DOMContentLoaded', () => {
+            updateDetailPanel(1);
+            // Enter key mapping
+            document.getElementById('mainSearch')?.addEventListener('keypress', (e) => e.key === 'Enter' && performSearch());
+        });
+    </script>
+</body>
+</html>

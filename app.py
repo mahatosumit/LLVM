@@ -17,7 +17,7 @@ DOC_STORE = "vector_store/docs.json"
 
 EMBED_MODEL = "all-MiniLM-L6-v2"
 RERANK_MODEL = "cross-encoder/ms-marco-MiniLM-L-6-v2"
-LLM_MODEL = "gemma4:latest"   # or gemma3:1b
+LLM_MODEL = "gemma4:latest"
 
 TOP_K_VECTOR = 15
 TOP_K_BM25 = 15
@@ -507,25 +507,25 @@ if prompt := st.chat_input("Ask about catalogue parts..."):
         rag_prompt = build_prompt(prompt, contexts, listing=listing)
 
         with st.spinner("Generating answer..."):
-
             messages = [{"role": "user", "content": rag_prompt}]
             
-            # 👁️ Vision logic
-            current_model = LLM_MODEL or "phi3"
+            # 👁️ Vision logic (Gemma 4 native support)
             if uploaded_image:
-                # Convert the uploaded file to bytes for Ollama
                 image_bytes = uploaded_image.getvalue()
                 messages[0]["images"] = [image_bytes]
-                # Force a vision model if one isn't already set to a vision variant
-                if "vision" not in current_model.lower() and "llava" not in current_model.lower():
-                    current_model = "llava" # Fallback vision model
 
-            response = ollama.chat(
-                model=current_model,
-                messages=messages
-            )
-
-            answer = response["message"]["content"]
+            try:
+                response = ollama.chat(
+                    model=LLM_MODEL,
+                    messages=messages
+                )
+                answer = response["message"]["content"]
+            except Exception as e:
+                if "not found" in str(e).lower():
+                    answer = f"⚠️ **Error:** The model `{LLM_MODEL}` was not found in Ollama.\n\n" \
+                             f"Please run `ollama pull {LLM_MODEL}` in your terminal."
+                else:
+                    answer = f"⚠️ **Ollama Error:** {str(e)}"
 
         output = f"""{answer}
 
